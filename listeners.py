@@ -8,6 +8,12 @@ from signals_ahoy.signals import collect_urls
 config_group = config_get_group('PAYMENT_DUMB')
 
 def add_dumb_urls(sender, patterns=None, **kwargs):
+    """
+    Payment in satchmo is unfriendly towards us; it only adds urls for modules
+    with `PAYMENT_PROCESSOR` in their model.
+
+    (See models.py on why we don't define `PAYMENT_PROCESSOR`.)
+    """
     patterns.append(
         url(r'^checkout/%s/' % config_value(config_group, 'URL_BASE'),
             include('%s.urls' % config_value(config_group, 'MODULE').__name__),)
