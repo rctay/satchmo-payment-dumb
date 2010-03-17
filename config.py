@@ -35,6 +35,8 @@ config_register_list(
         default = 'Pay Now',
         help_text = _('This will be passed to the translation utility')),
 
+    # We can't use the `^<base>/` form like the built-in satchmo payment modules
+    # do, as we're prefixing it with `^/checkout/%s/`.
     StringValue(PAYMENT_GROUP,
         'URL_BASE',
         description=_('The url base used for constructing urlpatterns which will use this module'),
