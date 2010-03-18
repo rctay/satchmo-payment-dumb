@@ -6,6 +6,12 @@ PAYMENT_GROUP = ConfigurationGroup('PAYMENT_DUMB',
     ordering = 200)
 
 config_register_list(
+    ModuleValue(PAYMENT_GROUP,
+        'MODULE',
+        description=_('Implementation module'),
+        hidden=True,
+        default = 'satchmo_payment_dumb'),
+
     BooleanValue(PAYMENT_GROUP,
         'LIVE',
         description=_("Accept real payments"),
@@ -16,12 +22,6 @@ config_register_list(
         'SSL',
         description=_("Use SSL for the module checkout pages?"),
         default=False),
-
-    ModuleValue(PAYMENT_GROUP,
-        'MODULE',
-        description=_('Implementation module'),
-        hidden=True,
-        default = 'satchmo_payment_dumb'),
 
     StringValue(PAYMENT_GROUP,
         'KEY',
