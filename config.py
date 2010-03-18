@@ -23,6 +23,12 @@ config_register_list(
         description=_("Use SSL for the module checkout pages?"),
         default=False),
 
+    BooleanValue(PAYMENT_GROUP,
+        'EXTRA_LOGGING',
+        description=_("Verbose logs"),
+        help_text=_("Add extensive logs during post."),
+        default=False),
+
     StringValue(PAYMENT_GROUP,
         'KEY',
         description=_("Module key"),
