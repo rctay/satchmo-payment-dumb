@@ -1,6 +1,8 @@
 from django.http import HttpResponseRedirect
 from satchmo_store.shop.models import Order, OrderStatus
 
+from signals import pending_order_confirmed
+
 def _dumb_success(controller):
     """
     Stripped-down implementation of `ConfirmController._onSuccess()`:
@@ -22,6 +24,9 @@ def _dumb_success(controller):
         if not curr_status.notes:
             curr_status.notes = _("Order pending payment")
         curr_status.save()
+
+    # notify listeners
+    pending_order_confirmed.send(controller, order=controller.order)
 
     #Redirect to the success page
     url = controller.lookup_url('satchmo_checkout-success')
