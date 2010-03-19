@@ -5,11 +5,11 @@ config = config_get_group('PAYMENT_DUMB')
 module = config_value(config, 'MODULE').__name__
 key = config_value(config, 'KEY')
 
-urlpatterns = patterns('',
-    (r'^$', '%s.views.pay_ship_info' % module,
+urlpatterns = patterns('%s.views' % module,
+    (r'^$', 'pay_ship_info',
         {'SSL':config.SSL.value}, '%s_satchmo_checkout-step2' % key),
-    (r'^confirm/$', '%s.views.confirm_info' % module,
+    (r'^confirm/$', 'confirm_info',
         {'SSL':config.SSL.value}, '%s_satchmo_checkout-step3' % key),
-    (r'^success/$', 'payment.views.checkout.success',
+    (r'^success/$', 'success',
         {'SSL':config.SSL.value}, '%s_satchmo_checkout-success' % key),
 )
