@@ -7,6 +7,7 @@ def _dumb_success(controller):
 
       - removed check for whether order has been paid in full
       - remove code for subscription products
+      - changed order status
     """
     controller.cart.empty()
     try:
@@ -15,11 +16,11 @@ def _dumb_success(controller):
         curr_status = None
 
     if (curr_status is None) or (curr_status.notes and curr_status.status == "New"):
-        controller.order.add_status(status='New', notes = "Order successfully submitted")
+        controller.order.add_status(status='New', notes = "Order pending payment")
     else:
         # otherwise just update and save
         if not curr_status.notes:
-            curr_status.notes = _("Order successfully submitted")
+            curr_status.notes = _("Order pending payment")
         curr_status.save()
 
     #Redirect to the success page
