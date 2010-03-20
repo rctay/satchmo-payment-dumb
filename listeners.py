@@ -5,7 +5,7 @@ from payment.signals import payment_choices
 from satchmo_store import shop
 from signals_ahoy.signals import collect_urls
 
-config_group = config_get_group('PAYMENT_DUMB')
+config_group = 'PAYMENT_DUMB'
 
 def add_dumb_urls(sender, patterns=None, **kwargs):
     """
@@ -32,11 +32,10 @@ def add_dumb_method(sender, choices=None, **kwargs):
         return
 
     module = config_value(config_group, 'MODULE')
-    group = 'PAYMENT_DUMB'
 
     # repeat logic in `payment.config.labelled_gateway_choices()`
     defaultlabel = module.__name__.split('.')[-1]
-    label = _(config_value(group, 'LABEL', default = defaultlabel))
-    choices.append((group, label))
+    label = _(config_value(config_group, 'LABEL', default = defaultlabel))
+    choices.append((config_group, label))
 
 payment_choices.connect(add_dumb_method)
